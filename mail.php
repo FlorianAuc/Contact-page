@@ -6,24 +6,23 @@ use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
-//Load Composer's 
-
 
 if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $lastname = $_POST['lastname'];
-    $email = $_POST['email'];
-    $genre = $_POST['genre'];
-    $subject = $_POST['subject'];
-    $country = $_POST['country'];
-    $message = $_POST['message'];
 
-    $messagecontent = ("$name vous a envoyer un mail ! "  ."<br>Message = " . $message);
+    
+    $name = htmlspecialchars(strtoupper($_POST['name']));
+    $firstname =  htmlspecialchars(strtoupper($_POST['firstname']));
+    $email = htmlspecialchars(strtoupper($_POST['email']));
+    $genre = htmlspecialchars(strtoupper($_POST['genre']));
+    $subject = htmlspecialchars(strtoupper($_POST['subject']));
+    $country = htmlspecialchars(strtoupper($_POST['country']));
+    $message = htmlspecialchars(strtoupper($_POST['message']));
+
+    $messagecontent = ($genre . "$name vous a envoyer un mail ! "  ."<br>Message = " . $message);
 
 //Create an instance; passing `true` enables exceptions
 
     $mail = new PHPMailer(true);
-    $alert = '';
     try {
         //Server settings
         //$mail->SMTPDebug = SMTP::DEBUG_SERVER; //Enable verbose debug output
@@ -36,8 +35,8 @@ if (isset($_POST['submit'])) {
         $mail->Port = 2525; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         $mail->CharSet = 'utf-8';
         //Recipients
-        $mail->setFrom ("chickenhack216@gmail.com", 'Marc');
-        $mail->addAddress ($email); //Add a recipient
+        $mail->setFrom ($email, $firstname);
+        $mail->addAddress ("chickenhack216@gmail.com", 'Marc'); //Add a recipient
         $mail->addReplyTo ($email, $name, $lastname);
 
         //Attachments
@@ -48,11 +47,18 @@ if (isset($_POST['submit'])) {
         $mail->isHTML(true); //Set email format to HTML
         $mail->Subject = $subject;
         $mail->Body = $messagecontent;
+        
 
         $mail->send();
-    echo 'Message has been sent';
+        //header('Location: index.php');
+        $alert = '<div class="alert-success">
+                 <span>Message Sent! Thank you for contacting us.</span>
+                </div>';
 } catch (Exception $e) {
-   echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    $alert = '<div class="alert-error">
+    <span>'.$e->getMessage().'</span>
+  </div>';
+   //header('Location: index.php');
 }
 
 }

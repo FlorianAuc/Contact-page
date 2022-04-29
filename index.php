@@ -1,5 +1,4 @@
-<?php include "mail.php"?>
-
+<?php include 'mail.php' ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,12 +11,16 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <link href="./assets/index.css" rel="stylesheet" />
+    <link href="./assets/css/index.css" rel="stylesheet" />
     <title>Hacked-Poulette</title>
   </head>
   <body>
-      
-    <section id="contact">
+
+      <!--alert messages start-->
+      <?php echo $alert; ?>
+    <!--alert messages end-->
+
+      <section id="contact">
       <div class="contact-box">
         <div class="contact-links">
           <h2>CONTACT</h2>
@@ -28,32 +31,40 @@
             />
           </div>
         </div>
+
         <div class="contact-form-wrapper">
-          <form action="" method="post">
+
+        <form action="" method="post">
+
             <div class="form-item">
-              <input type="text" name="name" required />
+              <input type="text" name="name" required/>
               <label>Lastname:</label>
             </div>
+
             <div class="form-item">
-              <input type="text" name="lastname" required />
+              <input type="text" name="firstname" required/>
               <label>Firstname:</label>
             </div>
+
             <div class="from-item">
               <p>Gender:</p>
               <label for="gender" class="fieldLabel"> </label>
               <select id="gender" name="gender" class="form-control">
-                <option>Male</option>
-                <option>Female</option>
+                <option>Male </option>
+                <option>Female </option>
               </select>
             </div>
+
             <div class="form-item">
-              <input type="text" name="email" required />
+              <input type="text" name="email" id = 'email' required/>
               <label>Email:</label>
             </div>
+
             <div class="form-item">
-              <input type="text" name="country" required />
+              <input type="text" name="country" required/>
               <label>Country:</label>
             </div>
+
             <div class="from-item">
               <p>Subject:</p>
               <label for="subject" class="fieldLabel"> </label>
@@ -63,16 +74,24 @@
                 <option>Order not recevied</option>
               </select>
             </div>
+
             <div class="form-item">
               <textarea class="" name="message" required></textarea>
               <label>Message:</label>
             </div>
-            
+
             <input type="submit" name = "submit" value="Send" class="submit-btn">
-            
+
         </div>
       </div>
 </form>
 </section>
+
+    <script type="text/javascript">
+    if(window.history.replaceState){
+      window.history.replaceState(null, null, window.location.href);
+    }
+    </script>
+
 </body>
 </html>
