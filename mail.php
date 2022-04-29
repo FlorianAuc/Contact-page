@@ -9,13 +9,13 @@ if (isset($_POST['submit'])) {
 
     $name = htmlspecialchars(strtoupper($_POST['name']));
     $firstname = htmlspecialchars(strtoupper($_POST['firstname']));
-    $email = htmlspecialchars(strtoupper($_POST['email']));
-    $genre = htmlspecialchars(strtoupper($_POST['genre']));
-    $subject = htmlspecialchars(strtoupper($_POST['subject']));
-    $country = htmlspecialchars(strtoupper($_POST['country']));
-    $message = htmlspecialchars(strtoupper($_POST['message']));
+    $email = htmlspecialchars($_POST['email']);
+    $genre = htmlspecialchars($_POST['genre']);
+    $subject = htmlspecialchars($_POST['subject']);
+    $country = htmlspecialchars($_POST['country']);
+    $message = htmlspecialchars($_POST['message']);
 
-    $messagecontent = ($genre . "$name vous a envoyer un mail ! " . "<br>Message = " . $message);
+    $messagecontent = "<p>$genre ". "$name vous a envoyer un mail ! " . "<br>Message = " . "$message</p>";
 
 //Create an instance; passing `true` enables exceptions
 
