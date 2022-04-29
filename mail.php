@@ -4,21 +4,18 @@ require 'vendor/autoload.php';
 //These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-
 
 if (isset($_POST['submit'])) {
 
-    
     $name = htmlspecialchars(strtoupper($_POST['name']));
-    $firstname =  htmlspecialchars(strtoupper($_POST['firstname']));
+    $firstname = htmlspecialchars(strtoupper($_POST['firstname']));
     $email = htmlspecialchars(strtoupper($_POST['email']));
     $genre = htmlspecialchars(strtoupper($_POST['genre']));
     $subject = htmlspecialchars(strtoupper($_POST['subject']));
     $country = htmlspecialchars(strtoupper($_POST['country']));
     $message = htmlspecialchars(strtoupper($_POST['message']));
 
-    $messagecontent = ($genre . "$name vous a envoyer un mail ! "  ."<br>Message = " . $message);
+    $messagecontent = ($genre . "$name vous a envoyer un mail ! " . "<br>Message = " . $message);
 
 //Create an instance; passing `true` enables exceptions
 
@@ -35,9 +32,9 @@ if (isset($_POST['submit'])) {
         $mail->Port = 2525; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         $mail->CharSet = 'utf-8';
         //Recipients
-        $mail->setFrom ($email, $firstname);
-        $mail->addAddress ("chickenhack216@gmail.com", 'Marc'); //Add a recipient
-        $mail->addReplyTo ($email, $name, $lastname);
+        $mail->setFrom($email, $firstname);
+        $mail->addAddress("chickenhack216@gmail.com", 'Marc'); //Add a recipient
+        $mail->addReplyTo($email, $name, $lastname);
 
         //Attachments
         //$mail->addAttachment('/var/tmp/file.tar.gz'); //Add attachments
@@ -47,18 +44,17 @@ if (isset($_POST['submit'])) {
         $mail->isHTML(true); //Set email format to HTML
         $mail->Subject = $subject;
         $mail->Body = $messagecontent;
-        
 
         $mail->send();
         //header('Location: index.php');
         $alert = '<div class="alert-success">
                  <span>Message Sent! Thank you for contacting us.</span>
                 </div>';
-} catch (Exception $e) {
-    $alert = '<div class="alert-error">
-    <span>'.$e->getMessage().'</span>
+    } catch (Exception $e) {
+        $alert = '<div class="alert-error">
+    <span>' . $e->getMessage() . '</span>
   </div>';
-   //header('Location: index.php');
-}
+        //header('Location: index.php');
+    }
 
 }
